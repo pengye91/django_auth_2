@@ -33,18 +33,19 @@ def home(request):
     return render(request, "home.html", context)
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def show_color(request):
     if 'favorite_color' in request.session:
-        return HttpResponse("your favorite color is %s" % request.session["favorite_color"])
+        # return HttpResponse("your favorite color is %s a" % request.session["favorite_color"])
+        return HttpResponse(request.COOKIES['sessionid'])
     else:
-        return HttpResponse("you don't have a favorite color")
+        return HttpResponse(request.COOKIES['sessionid'])
 
 
 @login_required(login_url='login/')
 def set_color(request):
     if "favorite_color" not in request.session:
         request.session["favorite_color"] = 'red'
-        response = HttpResponse("now %s" % request.session["favorite_color"])
+        response = HttpResponse(request.session.keys())
         return response
-    return HttpResponse("now %s" % request.session["favorite_color"])
+    return HttpResponse(request.session.keys())
