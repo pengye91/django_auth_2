@@ -17,12 +17,18 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+from users.views import register
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^', include('loginapp.urls')),
     url(r'^login/$', views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', views.logout, {'next_page': '/login'}),
+    # url(r'^signup/$', CreateView.as_view(template_name='register.html', form_class=UserCreationForm,
+    #                                      success_url='/')),
+    url(r'^register/$', register, name='register'),
 ]
 
 # if settings.DEBUG:

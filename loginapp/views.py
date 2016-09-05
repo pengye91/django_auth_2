@@ -39,7 +39,7 @@ def show_color(request):
         # return HttpResponse("your favorite color is %s a" % request.session["favorite_color"])
         return HttpResponse(request.COOKIES['sessionid'])
     else:
-        return HttpResponse(request.COOKIES['sessionid'])
+        return HttpResponse(request.session['_auth_user_id'])
 
 
 @login_required(login_url='login/')
