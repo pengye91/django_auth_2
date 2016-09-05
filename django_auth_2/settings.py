@@ -37,9 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third_party_apps
+    'guardian',
+    'django_extensions',
+
+    # this project apps
+
+
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'django_auth_2.urls'
@@ -54,7 +64,7 @@ ROOT_URLCONF = 'django_auth_2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,7 +84,7 @@ WSGI_APPLICATION = 'django_auth_2.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'sqlite3': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -118,3 +128,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+
+AUTHENTICATION_BACKENDS = (
+    # default backend
+    'django.contrib.auth.backends.ModelBackend',
+
+    # third-party backend
+    'guardian.backends.ObjectPermissionBackend',
+)
+
+LOGIN_REDIRECT_URL = '/'
+
+GUARDIAN_MONKEY_PATCH = False
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+    },
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    '::1',
+]
