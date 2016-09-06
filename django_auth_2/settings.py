@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '+_-3*l)m1@408*b9js@o!5djsy_=hf*!0z^!+2*fws7ucdt=84'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -46,7 +44,6 @@ INSTALLED_APPS = [
     'users',
     'loginapp',
     'guardianapp',
-
 
 ]
 
@@ -82,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_auth_2.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -93,6 +89,8 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '1025'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -112,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -125,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -161,3 +157,8 @@ INTERNAL_IPS = [
     '127.0.0.1',
     '::1',
 ]
+
+# django-registration settings
+ACCOUNT_ACTIVATION_DAYS = 7
+# users must activate their accounts after registering within 7 days or will be in-activated permanently.
+
