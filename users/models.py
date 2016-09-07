@@ -2,16 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# import datetime
-
-
-# Create your models here.
-# class User(AbstractUser):
-#     title = models.CharField(max_length=120)
-#     # slug = models.SlugField(max_length=64, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     is_doctor = models.BooleanField(default=False, blank=False)
@@ -23,6 +13,9 @@ class Doctor(models.Model):
     class Meta:
         verbose_name = "Doctor"
         verbose_name_plural = "Doctors"
+        permissions = (
+            ('view_doctor', 'Can view doctor profile'),
+        )
 
     def __str__(self):
         return self.user.username
@@ -59,6 +52,9 @@ class Patient(models.Model):
     class Meta:
         verbose_name = "Patient"
         verbose_name_plural = "Patients"
+        permissions = (
+            ('view_patient', 'Can view patients.'),
+        )
 
     def __str__(self):
         return self.user.username
