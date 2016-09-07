@@ -142,8 +142,6 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-GUARDIAN_MONKEY_PATCH = False
-
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
@@ -171,3 +169,10 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 # CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
+
+# guardian settings
+GUARDIAN_MONKEY_PATCH = False
+GUARDIAN_RAISE_403 = True  # this cannot be used with GUARDIAN_RENDER_403 and GUARDIAN_TEMPLATE_403 at the same time.
+# GUARDIAN_RENDER_403 = True  # this should always be used with GUARDIAN_TEMPLATE_403.
+# GUARDIAN_TEMPLATE_403 = True # default to 403.html
+
