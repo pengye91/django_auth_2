@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     # third_party_apps
     'guardian',
     'django_extensions',
+    # 'djcelery',
 
     # this project apps
     'users',
     'loginapp',
     'guardianapp',
+    'testapp',
 
 ]
 
@@ -162,3 +164,10 @@ INTERNAL_IPS = [
 ACCOUNT_ACTIVATION_DAYS = 7
 # users must activate their accounts after registering within 7 days or will be in-activated permanently.
 
+# celery settings
+BROKER_URL = 'redis://localhost:6379/2'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
